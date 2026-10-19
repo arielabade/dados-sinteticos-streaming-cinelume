@@ -1,0 +1,45 @@
+# Sobe o MySQL 8 com o schema da Cinelume e carrega os CSV de dados/csv.
+#   docker compose up -d mysql          -> só o banco (schema criado na 1ª subida)
+#   docker compose run --rm carga       -> carrega os dados (pode levar horas na escala full)
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: cinelume-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-cinelume}
+      MYSQL_DATABASE: cinelume
+      TZ: UTC
+    command:
+      - --local-infile=1
+      - --default-time-zone=+00:00
+      - --innodb-buffer-pool-size=${MYSQL_BUFFER_POOL:-1G}
+      - --innodb-log-file-size=512M
+      - --max-allowed-packet=256M
+    ports:
+      - "${MYSQL_PORT:-3307}:3306"
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - mysql_dados:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-cinelume}"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+
+  carga:
+    image: mysql:8.4
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PWD: ${MYSQL_ROOT_PASSWORD:-cinelume}
+      FK_CHECKS: ${FK_CHECKS:-1}
+    volumes:
+      - ./dados/csv:/dados/csv:ro
+      - ./mysql:/scripts:ro
+    entrypoint: ["bash", "/scripts/carregar.sh"]
+    profiles: ["carga"]
+
+volumes:
+  mysql_dados:

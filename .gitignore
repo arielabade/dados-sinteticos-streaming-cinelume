@@ -1,0 +1,6 @@
+# dados gerados e gabarito ficam fora do controle de versão
+dados/
+_gabarito/
+__pycache__/
+*.pyc
+.venv/
