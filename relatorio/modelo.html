@@ -65,6 +65,28 @@ h2{font-size:1.25rem;margin:4px 0 2px;font-weight:900}
 .panel .sub{font-size:.8rem;color:var(--muted);margin:0 0 6px}
 .plot{width:100%;height:330px}
 .plot.tall{height:390px}
+.pergunta{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cobalt);font-weight:700;margin:2px 0 4px}
+.resposta{font-size:1.05rem;margin:0 0 6px;max-width:90ch}
+.resposta b{font-weight:900}
+.ins{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:14px}
+.ic{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--steel);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.ic.bom{border-left-color:var(--ok)} .ic.atencao{border-left-color:#C08A1E} .ic.alerta{border-left-color:var(--bad)} .ic.neutro{border-left-color:var(--cobalt)}
+.ic .tag{align-self:flex-start;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900;border-radius:999px;padding:2px 8px;background:var(--soft);color:var(--muted)}
+.ic.bom .tag{background:#DDF1E6;color:var(--ok)} .ic.atencao .tag{background:#F7EBCF;color:#8A5B00} .ic.alerta .tag{background:#F6DCDA;color:var(--bad)} .ic.neutro .tag{background:#E3E6FF;color:#2E3AA8}
+.ic .tt{font-weight:900;font-size:.98rem;line-height:1.3}
+.ic .vv{font-size:1.45rem;font-weight:900;letter-spacing:-.01em}
+.ic .ev{font-size:.84rem;color:var(--graphite)}
+.ic .ac{font-size:.82rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:6px;margin-top:2px}
+.ic .ac b{color:var(--carbon)}
+.saude{background:var(--carbon);color:var(--ivory);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.saude h3{margin:0 0 8px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#9BA2AA}
+.saude .resumo{font-size:1rem;margin:0 0 12px;max-width:100ch}
+.saude .grid-s{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.sm{background:#141518;border-radius:10px;padding:10px 12px;border-top:3px solid var(--steel)}
+.sm.bom{border-top-color:#3DBB7A} .sm.atencao{border-top-color:#E0A93A} .sm.alerta{border-top-color:#E06A6A}
+.sm .k{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#9BA2AA;font-weight:700}
+.sm .v{font-size:1.3rem;font-weight:900;margin:2px 0}
+.sm .r{font-size:.74rem;color:#9BA2AA}
 .insights{background:var(--carbon);color:var(--ivory);border-radius:12px;padding:12px 16px;margin-bottom:14px}
 .insights h3{margin:0 0 6px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#9BA2AA}
 .insights ul{margin:0;padding-left:1.1em}
@@ -145,10 +167,11 @@ td.txt{text-align:left;white-space:normal;min-width:240px}
 </section>
 
 <section class="page on" id="p-geral">
+  <p class="pergunta">A pergunta: o negócio está crescendo de forma saudável?</p>
   <h2 id="t-geral"></h2>
-  <p class="intro">Assinantes, receita e o que mudou no período escolhido, contra o período de comparação.</p>
+  <div class="saude"><h3>Saúde do negócio no período</h3><p class="resumo" id="resumo"></p><div class="grid-s" id="saude"></div></div>
   <div class="cards" id="c-geral"></div>
-  <div class="insights"><h3>Destaques do período</h3><ul id="destaques"></ul></div>
+  <div class="ins" id="i-geral"></div>
   <div class="grid">
     <div class="panel wide"><h3 id="h-mrr"></h3><p class="sub">Receita recorrente reconhecida por mês (barras) e assinantes ativos no fim do mês (linha). Em azul, o período escolhido.</p><div class="plot" id="g-mrr"></div></div>
     <div class="panel"><h3 id="h-ponte"></h3><p class="sub">Ponte de assinantes: do início ao fim do período.</p><div class="plot" id="g-ponte"></div></div>
@@ -158,8 +181,11 @@ td.txt{text-align:left;white-space:normal;min-width:240px}
 
 <section class="page" id="p-aquisicao">
   <h2>Aquisição</h2>
+  <p class="pergunta">A pergunta: cada real investido está trazendo assinantes que pagam e ficam?</p>
+  <p class="resposta" id="r-aquisicao"></p>
   <p class="intro">Investimento ao lado do que ele comprou. O canal de cada cadastro é o gravado na conta; a ferramenta de atribuição aparece só para comparação, porque distorce os canais (ver Qualidade dos dados).</p>
   <div class="cards" id="c-aq"></div>
+  <div class="ins" id="i-aquisicao"></div>
   <div class="panel" style="margin-bottom:12px"><h3 id="h-tab-canal"></h3><p class="sub">Período escolhido. CAC = investimento / novos assinantes que pagaram a 1ª fatura em até 30 dias.</p><div class="tw" id="tab-canal"></div><p class="note" id="n-canal"></p></div>
   <div class="grid">
     <div class="panel"><h3 id="h-cac"></h3><p class="sub">CAC por canal pago no período escolhido, com o período de comparação. A TV investe em ondas: leia o CAC dela em 6 meses ou mais.</p><div class="plot" id="g-cac"></div></div>
@@ -170,8 +196,11 @@ td.txt{text-align:left;white-space:normal;min-width:240px}
 
 <section class="page" id="p-receita">
   <h2>Receita</h2>
+  <p class="pergunta">A pergunta: a receita cresce por mais assinantes, por mais receita por assinante, ou pelos dois?</p>
+  <p class="resposta" id="r-receita"></p>
   <p class="intro">Receita paga (faturas quitadas, pelo mês de emissão), receita recorrente reconhecida (planos anuais divididos em 12 meses) e o efeito dos reajustes.</p>
   <div class="cards" id="c-rec"></div>
+  <div class="ins" id="i-receita"></div>
   <div class="grid">
     <div class="panel wide"><h3 id="h-mrrplano"></h3><p class="sub">Receita recorrente reconhecida por plano e mês. Linhas verticais: reajustes de preço e mudanças de produto.</p><div class="plot tall" id="g-mrrplano"></div></div>
     <div class="panel"><h3 id="h-arpu"></h3><p class="sub">Receita recorrente por assinante ativo, por mês.</p><div class="plot" id="g-arpu"></div></div>
@@ -182,8 +211,11 @@ td.txt{text-align:left;white-space:normal;min-width:240px}
 
 <section class="page" id="p-retencao">
   <h2>Retenção</h2>
+  <p class="pergunta">A pergunta: quem está saindo, por quê, e quanto disso dá para evitar?</p>
+  <p class="resposta" id="r-retencao"></p>
   <p class="intro">Churn mensal = encerramentos / assinantes ativos no início de cada mês, somados no período. Voluntário: o cliente pediu. Involuntário: o pagamento não se concretizou.</p>
   <div class="cards" id="c-ret"></div>
+  <div class="ins" id="i-retencao"></div>
   <div class="grid">
     <div class="panel wide"><h3 id="h-churn"></h3><p class="sub">Churn mensal voluntário e involuntário. Em destaque, o período escolhido.</p><div class="plot" id="g-churn"></div></div>
     <div class="panel"><h3 id="h-motivos"></h3><p class="sub">Motivo principal na pesquisa de cancelamento, no período escolhido.</p><div class="plot" id="g-motivos"></div></div>
@@ -194,8 +226,11 @@ td.txt{text-align:left;white-space:normal;min-width:240px}
 
 <section class="page" id="p-uso">
   <h2>Uso e atendimento</h2>
+  <p class="pergunta">A pergunta: os assinantes estão usando o produto o bastante para continuar pagando?</p>
+  <p class="resposta" id="r-uso"></p>
   <p class="intro">Horas assistidas (corrigidas do erro de unidade do app 6.x), NPS e tickets de suporte.</p>
   <div class="cards" id="c-uso"></div>
+  <div class="ins" id="i-uso"></div>
   <div class="grid">
     <div class="panel wide"><h3 id="h-horas"></h3><p class="sub">Horas assistidas por conta que assistiu, por mês e plano.</p><div class="plot" id="g-horas"></div></div>
     <div class="panel"><h3 id="h-nps"></h3><p class="sub">NPS por plano no período escolhido (respostas da amostra trimestral).</p><div class="plot" id="g-nps"></div></div>
@@ -205,6 +240,8 @@ td.txt{text-align:left;white-space:normal;min-width:240px}
 
 <section class="page" id="p-qualidade">
   <h2>Qualidade dos dados</h2>
+  <p class="pergunta">A pergunta: dá para confiar nestes números?</p>
+  <div class="ins" id="i-qualidade"></div>
   <p class="intro">O banco tem imperfeições de propósito. Cada uma foi encontrada nos dados, contada e tratada antes de virar métrica. A contagem vale para o banco inteiro, não para o período.</p>
   <div class="panel"><div class="tw" id="tab-q"></div></div>
 </section>
@@ -232,7 +269,7 @@ const C = {carbon: "#050505", ivory: "#F6F5F0", graphite: "#1B1C1F", steel: "#7E
 const SERIES = [C.cobalt, C.graphite, C.aurum, C.steel, "#2E3AA8", "#A4ADFF"];
 const MIN = 30;
 
-const S = {i0: M.length - 3, i1: M.length - 1, cmp: "ant", canais: new Set(D.canais.map(c => c.codigo)),
+const S = {i0: M.length - 12, i1: M.length - 1, cmp: "ant", canais: new Set(D.canais.map(c => c.codigo)),
   planos: new Set(D.planos.map(p => p.id)), metodos: new Set(D.metodos), intervalo: false, ancora: null, pagina: "geral"};
 
 // ---------- formatos
@@ -425,6 +462,8 @@ const CFG = {displayModeBar: false, responsive: true, locale: "pt-BR"};
 function plot(id, data, lay = {}) {
   const el = document.getElementById(id);
   if (!el || el.offsetParent === null) return;
+  // sem a biblioteca de gráficos (rede caiu, CDN bloqueado), os números e os insights continuam: só o gráfico avisa
+  if (!window.Plotly) { el.innerHTML = '<p class="note">Gráfico indisponível: a biblioteca de gráficos não carregou. Os números da página continuam válidos.</p>'; return; }
   const L = JSON.parse(JSON.stringify(BASE));
   for (const k in lay) L[k] = (typeof lay[k] === "object" && !Array.isArray(lay[k]) && L[k]) ? Object.assign(L[k], lay[k]) : lay[k];
   if (window.innerWidth < 640) {
@@ -451,6 +490,278 @@ function notasMarcos() {
     xanchor: "left", font: {size: 10, color: "#8A7B4A"}, bgcolor: "rgba(246,245,240,.85)"}));
 }
 
+// canais que compram mídia em ondas (TV): o gasto de um mês passa de 10x a mediana do canal
+const ondas = c => { const v = M.map((m, i) => midia(i, i, true)[c]?.inv || 0), med = v.slice().sort((x, y) => x - y)[Math.floor(v.length / 2)];
+  return Math.max(...v) > 10 * Math.max(med, 1); };
+const periodoCurto = () => S.i1 - S.i0 + 1 < 6;
+// ---------- saúde do negócio e insights
+// Faixas de leitura (relatorio/build.py, REFERENCIAS): regras de bolso declaradas na página Método, não benchmarks medidos
+const REF = D.referencias;
+function nivel(v, r) {
+  if (!isFinite(v)) return "neutro";
+  if (r.alto) return v >= r.bom ? "bom" : (v < r.ruim ? "alerta" : "atencao");
+  return v <= r.bom ? "bom" : (v > r.ruim ? "alerta" : "atencao");
+}
+const ROT = {bom: "Saudável", atencao: "Atenção", alerta: "Alerta", neutro: "Contexto", pequena: "Amostra pequena"};
+function ic(st, titulo, valor, evid, acao) {
+  return `<div class="ic ${st === "pequena" ? "neutro" : st}"><span class="tag">${ROT[st]}</span><div class="tt">${titulo}</div>` +
+    (valor ? `<div class="vv">${valor}</div>` : "") + `<div class="ev">${evid}</div>` + (acao ? `<div class="ac"><b>O que fazer:</b> ${acao}</div>` : "") + "</div>";
+}
+const mensal = (fim, ini, n) => ini > 0 && fim > 0 ? Math.pow(fim / ini, 1 / n) - 1 : NaN;
+
+function saude(P) {
+  const n = S.i1 - S.i0 + 1;
+  const ini = S.i0 > 0 ? estoque(S.i0 - 1) : null;
+  const atIni = ini ? g(ini, "ativos_fim") : NaN, mrrIni = ini ? g(ini, "mrr") : NaN;
+  const s = P.s;
+  return {
+    n, atIni, mrrIni,
+    crescAt: P.ativos / atIni - 1, crescAtMes: mensal(P.ativos, atIni, n),
+    crescMrr: P.mrr / mrrIni - 1, crescMrrMes: mensal(P.mrr, mrrIni, n),
+    liquido: P.novas + P.reat - P.enc,
+    quick: P.enc > 0 ? (P.novas + P.reat) / P.enc : NaN,
+    payback: isFinite(P.cacPago) && P.arpu > 0 ? P.cacPago / P.arpu : NaN,
+    ltvcac: isFinite(P.cacPago) && isFinite(P.ltv) ? P.ltv / P.cacPago : NaN,
+    invShare: P.enc > 0 ? P.encInv / P.enc : NaN,
+    // denominador: quem foi assinante em algum momento do mês (base inicial + entradas), como o numerador
+    ativ: (g(s, "ativos_ini") + g(s, "novas") + g(s, "reativacoes")) > 0
+      ? g(s, "contas_assistiram") / (g(s, "ativos_ini") + g(s, "novas") + g(s, "reativacoes")) : NaN,
+  };
+}
+function painelSaude(P, Q) {
+  const H = saude(P), sinal = v => (v >= 0 ? "+" : "") + pct(v);
+  const itens = [
+    ["Crescimento de assinantes", isFinite(H.crescAt) ? sinal(H.crescAt) : "—", nivel(H.crescAtMes, REF.cresc),
+      isFinite(H.crescAtMes) ? `${sinal(H.crescAtMes)} ao mês · ${num(H.atIni)} → ${num(P.ativos)}` : "sem mês anterior nos dados"],
+    ["Crescimento da receita recorrente", isFinite(H.crescMrr) ? sinal(H.crescMrr) : "—", nivel(H.crescMrrMes, REF.cresc),
+      isFinite(H.crescMrrMes) ? `${sinal(H.crescMrrMes)} ao mês · ${brlK(H.mrrIni)} → ${brlK(P.mrr)}` : "sem mês anterior nos dados"],
+    ["Quick ratio", isFinite(H.quick) ? nf2.format(H.quick) : "—", P.enc < MIN ? "neutro" : nivel(H.quick, REF.quick),
+      `entradas por saída · ${REF.quick.txt}`],
+    ["Churn mensal", pct(P.churn), P.enc < MIN ? "neutro" : nivel(P.churn, REF.churn), REF.churn.txt],
+    ["Payback do CAC", isFinite(H.payback) ? nf1.format(H.payback) + " meses" : "—", P.pagPago < MIN ? "neutro" : nivel(H.payback, REF.payback),
+      filtroCompleto() ? `canais pagos · ${REF.payback.txt}` : "indisponível com filtro de plano ou método"],
+    ["LTV / CAC (receita)", isFinite(H.ltvcac) ? nf1.format(H.ltvcac) + "x" : "—", P.pagPago < MIN ? "neutro" : nivel(H.ltvcac, REF.ltvcac),
+      `canais pagos · ${REF.ltvcac.txt}`],
+    ["Churn involuntário", isFinite(H.invShare) ? pct(H.invShare, 0) : "—", P.enc < MIN ? "neutro" : nivel(H.invShare, REF.invol),
+      `das saídas · ${REF.invol.txt}`],
+    ["Ativação", isFinite(H.ativ) ? pct(H.ativ, 0) : "—", nivel(H.ativ, REF.ativ), `assinantes do mês que assistiram algo · ${REF.ativ.txt}`],
+    ["NPS", isFinite(P.nps) ? nf0.format(P.nps) : "—", P.npsN < MIN ? "neutro" : nivel(P.nps, REF.nps), `${num(P.npsN)} respostas · ${REF.nps.txt}`],
+  ];
+  document.getElementById("saude").innerHTML = itens.map(([k, v, st, r]) =>
+    `<div class="sm ${st}"><div class="k">${k}</div><div class="v">${v}</div><div class="r">${r}</div></div>`).join("");
+  // a frase que resume o período: crescimento, motor e o ponto mais fraco
+  const fracos = itens.filter(i => i[2] === "alerta").concat(itens.filter(i => i[2] === "atencao"));
+  const fortes = itens.filter(i => i[2] === "bom");
+  let f = isFinite(H.crescAt)
+    ? `No período, a base ${H.crescAt >= 0 ? "cresceu" : "encolheu"} <b>${pct(Math.abs(H.crescAt))}</b> (${num(H.liquido)} assinantes líquidos) e a receita recorrente ${H.crescMrr >= 0 ? "cresceu" : "caiu"} <b>${pct(Math.abs(H.crescMrr))}</b>`
+    : `No período, entraram ${num(P.novas + P.reat)} assinantes e saíram ${num(P.enc)}`;
+  if (isFinite(H.quick)) f += `: para cada assinante que saiu, entraram <b>${nf1.format(H.quick)}</b>`;
+  f += ". ";
+  // ritmo: o mesmo crescimento medido no período de comparação
+  const [c0, c1] = comparacao();
+  if (c0 != null && c0 > 0) {
+    const a0 = g(estoque(c0 - 1), "ativos_fim"), a1 = g(estoque(c1), "ativos_fim"), cq = a1 / a0 - 1;
+    if (isFinite(cq) && isFinite(H.crescAt) && a0 > 0) f += `O ritmo <b>${H.crescAt < cq ? "desacelerou" : "acelerou"}</b>: na comparação, a base tinha crescido ${pct(cq)}. `;
+  }
+  const min1 = t => t.replace(/^\S+/, w => /^[A-Z]{2,}/.test(w) ? w : w.toLowerCase());
+  if (fortes.length) f += `Pontos fortes: ${fortes.slice(0, 3).map(i => min1(i[0])).join(", ")}. `;
+  f += fracos.length ? `Ponto a vigiar: <b>${min1(fracos[0][0])}</b> (${fracos[0][1]}).` : "Nenhuma métrica fora da faixa saudável.";
+  document.getElementById("resumo").innerHTML = f;
+  return H;
+}
+
+function insGeral(P, Q, H) {
+  const C = [];
+  const pc = soma(S.i0, S.i1, k => k[1]);
+  const ent = Object.entries(pc).map(([c, o]) => ({c, n: g(o, "novas") + g(o, "reativacoes"), e: g(o, "enc_vol") + g(o, "enc_invol")}));
+  const motor = ent.slice().sort((a, b) => (b.n - b.e) - (a.n - a.e))[0];
+  if (motor) C.push(ic("neutro", `${NOME_CANAL[motor.c]} é o maior motor de crescimento líquido`, (motor.n - motor.e >= 0 ? "+" : "") + num(motor.n - motor.e),
+    `${num(motor.n)} entradas contra ${num(motor.e)} saídas no período: ${pct((motor.n - motor.e) / Math.max(H.liquido, 1), 0)} do saldo líquido da base.`,
+    "proteger a fonte: é o canal que mais sustenta a base."));
+  if (Q && isFinite(Q.novas) && P.novas >= MIN) {
+    const dv = P.novas / Q.novas - 1, fr = fragil(P.novas, Q.novas, P.novas / Q.novas);
+    C.push(ic(fr ? "neutro" : (dv >= 0 ? "bom" : "atencao"), `Aquisição ${fr ? "estável" : (dv >= 0 ? "acelerou" : "desacelerou")} contra a comparação`,
+      (dv >= 0 ? "+" : "") + pct(dv), `${num(P.novas)} novas assinaturas contra ${num(Q.novas)}${fr ? "; a diferença está dentro do ruído" : ""}.`,
+      fr ? "" : dv < 0 ? "ver na aba Aquisição qual canal perdeu volume." : "conferir se o CAC acompanhou (aba Aquisição)."));
+  }
+  if (isFinite(P.churn) && Q && isFinite(Q.churn) && P.enc >= MIN) {
+    const fr = fragil(P.enc / P.base, Q.enc / Q.base, (P.enc / P.base) / (Q.enc / Q.base));
+    const st = fr ? "neutro" : (P.churn < Q.churn ? "bom" : "alerta");
+    C.push(ic(st, fr ? "Retenção estável contra a comparação" : (P.churn < Q.churn ? "Retenção melhorou" : "Retenção piorou"), pct(P.churn) + " ao mês",
+      `contra ${pct(Q.churn)} na comparação (${pp(P.churn, Q.churn)}). Cada ponto de churn a menos vale ~${brlK(P.ativos * 0.01 * P.arpu)} de receita recorrente por mês.`,
+      st === "alerta" ? "abrir a aba Retenção: ver se a alta é voluntária ou de pagamento." : ""));
+  }
+  if (isFinite(H.payback) && P.pagPago >= MIN) C.push(ic(nivel(H.payback, REF.payback), "O investimento em mídia se paga em", nf1.format(H.payback) + " meses",
+    `CAC dos canais pagos de ${brl(P.cacPago)} contra ${brl(P.arpu, 2)} de receita por assinante ao mês; a vida média é de ${nf1.format(1 / P.churn)} meses.`,
+    H.payback > REF.payback.bom ? "concentrar verba nos canais de menor payback (aba Aquisição)." : "há folga para escalar os canais pagos de melhor payback."));
+  const ev = D.eventos.filter(e => M.indexOf(e.mes) >= S.i0 && M.indexOf(e.mes) <= S.i1);
+  if (ev.length) C.push(ic("neutro", "Mudanças de produto e preço dentro do período", String(ev.length),
+    ev.map(e => `${esc(e.rotulo)} em ${rotuloLongo(e.mes)}`).join("; ") + ". Comparações que atravessam essas datas misturam regras diferentes.",
+    "ler o efeito de cada mudança na aba Receita (reajustes) e Retenção."));
+  document.getElementById("i-geral").innerHTML = C.join("");
+}
+const pp = (a, b) => !isFinite(a) || !isFinite(b) ? "—" : (a - b >= 0 ? "+" : "") + nf1.format((a - b) * 100) + " p.p.";
+
+function insAquisicao(P, Q) {
+  const [c0, c1] = comparacao(), A = porCanal(S.i0, S.i1), B = porCanal(c0, c1), ok = filtroCompleto(), C = [];
+  const fora = periodoCurto() ? D.canais.filter(c => c.pago && ondas(c.codigo)).map(c => c.nome) : [];
+  const pagos = D.canais.filter(c => c.pago && A[c.codigo] && A[c.codigo].pag >= MIN && A[c.codigo].inv > 0 && isFinite(A[c.codigo].ltv)
+    && !fora.includes(c.nome));
+  if (fora.length) C.push(ic("pequena", `${fora.join(", ")} fora do ranking neste período`, "",
+    `${fora.join(", ")} compra mídia em ondas: em menos de 6 meses, os cadastros podem vir de uma campanha anterior ao período e o CAC sai artificialmente baixo ou alto.`,
+    "use 6 meses ou mais para comparar canais."));
+  if (ok && pagos.length) {
+    const r = pagos.map(c => ({c, v: A[c.codigo].ltv / A[c.codigo].cac, pb: A[c.codigo].cac / A[c.codigo].arpu})).sort((a, b) => b.v - a.v);
+    const b = r[0], w = r[r.length - 1];
+    C.push(ic(nivel(b.v, REF.ltvcac), `${b.c.nome} é o canal pago que mais devolve por real investido`, nf1.format(b.v) + "x",
+      `LTV/CAC (receita) de ${nf1.format(b.v)}x e payback de ${nf1.format(b.pb)} meses${r.length > 1 ? `; ${w.c.nome} fica em ${nf1.format(w.v)}x e ${nf1.format(w.pb)} meses` : ""}.`,
+      r.length > 1 ? `testar mover verba de ${w.c.nome} para ${b.c.nome} em degraus, lendo o CAC marginal a cada passo.` : ""));
+  }
+  const gratis = D.canais.filter(c => !c.pago && A[c.codigo]).reduce((a, c) => a + A[c.codigo].pag, 0);
+  const totPag = Object.values(A).reduce((a, x) => a + x.pag, 0);
+  if (totPag >= MIN) {
+    const sh = gratis / totPag;
+    C.push(ic(sh > 0.6 ? "atencao" : "neutro", "Quanto do crescimento não depende de mídia paga", pct(sh, 0),
+      `${num(gratis)} dos ${num(totPag)} novos pagantes vieram de orgânico, indicação ou parceria (custo zero ou fee por cadastro).`,
+      sh > 0.6 ? "a base depende de canais que não escalam com verba: proteger indicação e parceria." : "orgânico e indicação são o colchão: medir o efeito da marca e do boca a boca."));
+  }
+  const busca = A["busca_paga"];
+  if (busca && busca.cad >= MIN && ok) {
+    const fant = busca.att - busca.cad, cacAtt = busca.att > 0 ? busca.inv / busca.att : NaN;
+    C.push(ic(Math.abs(fant / busca.cad) > 0.15 ? "alerta" : "bom", "A ferramenta de atribuição distorce o custo da busca paga",
+      (fant >= 0 ? "+" : "") + pct(fant / busca.cad, 0),
+      `ela credita ${num(busca.att)} cadastros à busca, contra ${num(busca.cad)} reais: o custo por cadastro parece ${brl(cacAtt, 2)} em vez de ${brl(busca.inv / busca.cad, 2)}.`,
+      "decidir verba pelo canal gravado na conta (ou por teste de incrementalidade), não pelo último clique."));
+  }
+  const cres = D.canais.filter(c => A[c.codigo] && B[c.codigo] && A[c.codigo].cad >= MIN && B[c.codigo].cad >= MIN)
+    .map(c => ({c, r: A[c.codigo].cad / B[c.codigo].cad})).filter(x => !fragil(A[x.c.codigo].cad, B[x.c.codigo].cad, x.r)).sort((a, b) => b.r - a.r);
+  if (cres.length) {
+    const t = cres[0], l = cres[cres.length - 1];
+    const titulo = t.r >= 1 ? `${t.c.nome} foi o canal que mais ganhou volume` : (cres.length > 1 ? `Todos os canais perderam volume; ${t.c.nome} foi o que menos caiu` : `${t.c.nome} perdeu volume`);
+    C.push(ic(t.r >= 1 ? "neutro" : "atencao", titulo, (t.r >= 1 ? "+" : "") + pct(t.r - 1, 0),
+      `cadastros contra a comparação${cres.length > 1 && l.c !== t.c ? `; ${l.c.nome} variou ${(l.r >= 1 ? "+" : "") + pct(l.r - 1, 0)}` : ""}. Só canais com variação fora do ruído.`, ""));
+  }
+  const conv = P.cad > 0 ? P.pag / P.cad : NaN;
+  if (P.cad >= MIN) C.push(ic(conv >= 0.9 ? "bom" : "atencao", "Cadastro vira pagante", pct(conv, 0),
+    `${num(P.pag)} de ${num(P.cad)} cadastros pagaram a primeira fatura em até 30 dias.`, conv < 0.9 ? "olhar a falha da primeira cobrança por método (aba Retenção)." : ""));
+  document.getElementById("i-aquisicao").innerHTML = C.join("") || ic("pequena", "Período curto demais para comparar canais", "", "Escolha 3 meses ou mais.", "");
+  const best = pagos.length ? pagos.slice().sort((a, b) => A[a.codigo].cac - A[b.codigo].cac)[0] : null;
+  const pb = P.cacPago / P.arpu, stp = nivel(pb, REF.payback);
+  const veredito = {bom: "Sim", atencao: "Em parte", alerta: "Ainda não", neutro: "Sem base para afirmar"}[P.pagPago < MIN ? "neutro" : stp];
+  document.getElementById("r-aquisicao").innerHTML = ok && isFinite(P.cacPago)
+    ? `${veredito}: nos canais pagos, cada assinante custou <b>${brl(P.cacPago)}</b> e a receita dele devolve esse custo em <b>${nf1.format(pb)} meses</b>${best ? `; ${esc(best.nome)} é o canal pago mais barato por assinante (${brl(A[best.codigo].cac)})` : ""}.`
+    : "Com filtro de plano ou método, o investimento não se divide: veja volume e conversão.";
+}
+
+function insReceita(P, Q) {
+  const C = [], H = saude(P);
+  const vol = isFinite(H.atIni) ? P.ativos / H.atIni : NaN, prc = isFinite(H.mrrIni) && H.atIni > 0 ? (P.mrr / P.ativos) / (H.mrrIni / H.atIni) : NaN;
+  if (isFinite(vol) && isFinite(prc)) {
+    const lv = Math.log(vol), lp = Math.log(prc), tot = lv + lp;
+    C.push(ic(H.crescMrr >= 0 ? "bom" : "alerta", "De onde veio o crescimento da receita recorrente", (H.crescMrr >= 0 ? "+" : "") + pct(H.crescMrr),
+      `${tot !== 0 ? pct(lv / tot, 0) : "—"} veio de mais assinantes (${(vol >= 1 ? "+" : "") + pct(vol - 1)}) e ${tot !== 0 ? pct(lp / tot, 0) : "—"} de mais receita por assinante (${(prc >= 1 ? "+" : "") + pct(prc - 1)}).`,
+      lp / tot > 0.5 ? "o crescimento depende de preço: acompanhar o churn voluntário após cada reajuste." : ""));
+  }
+  const ev = D.eventos.filter(e => e.rotulo.startsWith("reajuste") && M.indexOf(e.mes) >= S.i0 && M.indexOf(e.mes) <= S.i1);
+  ev.forEach(e => {
+    const i = M.indexOf(e.mes);
+    if (i < 3 || i + 2 >= M.length) return;
+    const a = kpis(i - 3, i - 1), d = kpis(i, i + 2);
+    C.push(ic(d.churnVol - a.churnVol > 0.005 ? "atencao" : "bom", `Reajuste de ${rotuloLongo(e.mes)}: receita subiu, quem saiu?`,
+      (d.arpu / a.arpu >= 1 ? "+" : "") + pct(d.arpu / a.arpu - 1), `receita por assinante, 3 meses antes contra 3 depois; churn voluntário foi de ${pct(a.churnVol)} para ${pct(d.churnVol)} (${pp(d.churnVol, a.churnVol)}).`,
+      d.churnVol - a.churnVol > 0.005 ? "no próximo reajuste, oferecer migração para o plano anual ou Básico antes do aumento." : ""));
+  });
+  const fp = estoque(S.i1, k => k[2]), ip = S.i0 > 0 ? estoque(S.i0 - 1, k => k[2]) : null;
+  const prem = D.planos[D.planos.length - 1];
+  if (fp[prem.id] && ip && ip[prem.id]) {
+    const tf = Object.values(fp).reduce((a, o) => a + g(o, "mrr"), 0), ti = Object.values(ip).reduce((a, o) => a + g(o, "mrr"), 0);
+    const sf = g(fp[prem.id], "mrr") / tf, si = g(ip[prem.id], "mrr") / ti;
+    C.push(ic("neutro", `Peso do ${prem.nome} na receita recorrente`, pct(sf, 0), `era ${pct(si, 0)} no início do período (${pp(sf, si)}).`,
+      sf > 0.5 ? `a receita depende do ${prem.nome}: o churn dele vale mais que o dos outros planos.` : ""));
+  }
+  const bruto = P.receita + P.desc - P.extra;
+  if (bruto > 0) C.push(ic(P.desc / bruto > 0.05 ? "atencao" : "bom", "Quanto os cupons custam", pct(P.desc / bruto),
+    `${brlK(P.desc)} de desconto sobre ${brlK(bruto)} de preço de tabela; membro extra devolveu ${brlK(P.extra)}.`,
+    P.desc / bruto > 0.05 ? "medir a retenção de quem entrou com cupom antes de renovar a campanha." : ""));
+  document.getElementById("i-receita").innerHTML = C.join("");
+  document.getElementById("r-receita").innerHTML = isFinite(vol) && isFinite(prc)
+    ? `A receita recorrente ${H.crescMrr >= 0 ? "cresceu" : "caiu"} <b>${pct(Math.abs(H.crescMrr))}</b> no período: <b>${vol >= prc ? "mais assinantes" : "mais receita por assinante"}</b> pesou mais (${(vol >= 1 ? "+" : "") + pct(vol - 1)} na base, ${(prc >= 1 ? "+" : "") + pct(prc - 1)} por assinante).`
+    : `Receita paga de <b>${brlK(P.receita)}</b> no período.`;
+}
+
+function insRetencao(P, Q) {
+  const C = [];
+  if (P.encInv >= MIN) {
+    const perda = P.encInv / P.meses * P.arpu;
+    C.push(ic(nivel(P.encInv / P.enc, REF.invol), "Churn que dava para evitar: falha de pagamento", pct(P.encInv / P.enc, 0) + " das saídas",
+      `${num(P.encInv)} assinaturas encerradas por pagamento não concretizado: cerca de ${brlK(perda)} de receita recorrente perdida por mês.`,
+      "retentativa inteligente no cartão, lembrete antes do vencimento no boleto e oferta de troca para cartão ou Pix automático."));
+  }
+  const sm = soma(S.i0, S.i1, k => k[3]);
+  const met = D.metodos.filter(m => sm[m] && g(sm[m], "enc_invol") >= MIN && S.metodos.has(m))
+    .map(m => ({m, v: g(sm[m], "enc_invol") / g(sm[m], "ativos_ini")})).sort((a, b) => b.v - a.v);
+  if (met.length > 1) C.push(ic("atencao", `${NOME_METODO[met[0].m]} perde ${nf1.format(met[0].v / met[met.length - 1].v)}x mais assinantes por pagamento`,
+    pct(met[0].v) + " ao mês", `churn involuntário mensal de ${NOME_METODO[met[0].m]}, contra ${pct(met[met.length - 1].v)} no ${NOME_METODO[met[met.length - 1].m]}.`,
+    `migrar quem paga com ${NOME_METODO[met[0].m]} para um método com cobrança automática.`));
+  const sp = soma(S.i0, S.i1, k => k[2]);
+  const pls = D.planos.filter(p => sp[p.id] && g(sp[p.id], "enc_vol") + g(sp[p.id], "enc_invol") >= MIN)
+    .map(p => ({p, v: (g(sp[p.id], "enc_vol") + g(sp[p.id], "enc_invol")) / g(sp[p.id], "ativos_ini")})).sort((a, b) => b.v - a.v);
+  if (pls.length > 1) C.push(ic(nivel(pls[0].v, REF.churn), `${pls[0].p.nome} é o plano que mais perde assinantes`, pct(pls[0].v) + " ao mês",
+    `contra ${pct(pls[pls.length - 1].v)} no ${pls[pls.length - 1].p.nome}: vida média de ${nf1.format(1 / pls[0].v)} contra ${nf1.format(1 / pls[pls.length - 1].v)} meses.`,
+    "ligar com a aba Uso: o plano que menos assiste é o que mais cancela?"));
+  const mot = longa(D.motivos, S.i0, S.i1), tot = Object.values(mot).reduce((a, b) => a + b, 0);
+  if (tot >= MIN) {
+    const pu = (mot.pouco_uso || 0) / tot, pr = (mot.preco || 0) / tot;
+    C.push(ic(pu > 0.4 ? "atencao" : "neutro", "Por que os clientes cancelam", pct(pu, 0) + " pouco uso",
+      `${pct(pr, 0)} citam preço, sobre ${num(tot)} respostas. Pouco uso é um problema de produto e recomendação, não de preço.`,
+      pu > 0.4 ? "reengajar quem não assiste há 14 dias (push com recomendação) antes de oferecer desconto." : ""));
+  }
+  if (P.reat >= MIN && P.enc > 0) C.push(ic("neutro", "Quantos voltam", pct(P.reat / P.enc, 0),
+    `${num(P.reat)} reativações para ${num(P.enc)} encerramentos no período.`, "campanhas de reconquista funcionam melhor com quem saiu por pagamento: segmentar por tipo de saída."));
+  document.getElementById("i-retencao").innerHTML = C.join("") || ic("pequena", "Poucos encerramentos no período", "", "Escolha um período maior para ler a retenção.", "");
+  document.getElementById("r-retencao").innerHTML = isFinite(P.churn)
+    ? `Saem <b>${pct(P.churn)}</b> dos assinantes por mês; <b>${pct(P.encInv / P.enc, 0)}</b> por falha de pagamento, a parte mais evitável. Entre os voluntários, o motivo dominante é pouco uso.`
+    : "Sem base para calcular o churn neste período.";
+}
+
+function insUso(P, Q) {
+  const C = [], H = saude(P);
+  if (isFinite(H.ativ)) C.push(ic(nivel(H.ativ, REF.ativ), "Assinantes que de fato assistem", pct(H.ativ, 0),
+    `das contas ativas assistiram algo no mês, em média. Quem não assiste é o candidato natural ao cancelamento por pouco uso.`,
+    H.ativ < REF.ativ.bom ? "campanha de ativação para contas sem reprodução no mês." : ""));
+  if (Q && isFinite(Q.horas) && isFinite(P.horas)) {
+    const r = P.horas / Q.horas;
+    C.push(ic(r >= 1 ? "bom" : "atencao", r >= 1 ? "O uso por conta cresceu" : "O uso por conta caiu", (r >= 1 ? "+" : "") + pct(r - 1),
+      `${nf1.format(P.horas)} h por conta que assistiu, por mês, contra ${nf1.format(Q.horas)} h na comparação.`, r < 1 ? "investigar catálogo e recomendação: uso caindo antecede churn." : ""));
+  }
+  const hp = soma(S.i0, S.i1, k => k[2]);
+  const rk = D.planos.filter(p => hp[p.id] && g(hp[p.id], "contas_assistiram") > 0).map(p => ({p, h: g(hp[p.id], "horas") / g(hp[p.id], "contas_assistiram")})).sort((a, b) => b.h - a.h);
+  if (rk.length > 1) C.push(ic("neutro", `${rk[0].p.nome} assiste ${nf1.format(rk[0].h / rk[rk.length - 1].h)}x mais que ${rk[rk.length - 1].p.nome}`,
+    nf1.format(rk[0].h) + " h/mês", `contra ${nf1.format(rk[rk.length - 1].h)} h. Uso e plano andam juntos: quem usa mais paga mais e cancela menos.`,
+    `testar upgrade para quem está no ${rk[rk.length - 1].p.nome} e assiste acima da média.`));
+  if (P.npsN >= MIN) C.push(ic(nivel(P.nps, REF.nps), "Satisfação (NPS)", nf0.format(P.nps), `sobre ${num(P.npsN)} respostas${Q && Q.npsN >= MIN ? `; ${(P.nps - Q.nps >= 0 ? "+" : "") + nf0.format(P.nps - Q.nps)} pts contra a comparação` : ""}.`, ""));
+  const tk = longa(D.tickets, S.i0, S.i1), tt = Object.entries(tk).sort((a, b) => b[1] - a[1]), ts = tt.reduce((a, b) => a + b[1], 0);
+  if (ts >= MIN) {
+    const din = ((tk.pagamento || 0) + (tk.cobranca || 0)) / ts;
+    C.push(ic(din > 0.3 ? "atencao" : "neutro", `${CATS[tt[0][0]]} é a maior fila do suporte`, pct(tt[0][1] / ts, 0),
+      `dos ${num(ts)} tickets; pagamento e cobrança somam ${pct(din, 0)}, o mesmo problema que gera o churn involuntário.`,
+      tt[0][0] === "acesso_login" ? "login sem senha (link mágico ou código) reduz a maior fila." : ""));
+  }
+  document.getElementById("i-uso").innerHTML = C.join("");
+  document.getElementById("r-uso").innerHTML = isFinite(H.ativ)
+    ? `Em média, <b>${pct(H.ativ, 0)}</b> dos assinantes assistem algo a cada mês, <b>${nf1.format(P.horas)} h</b> por conta. ${rk.length > 1 ? `O uso se concentra no ${esc(rk[0].p.nome)}.` : ""}`
+    : "";
+}
+
+function insQualidade() {
+  const Qd = D.qualidade.filter(q => q.de).sort((a, b) => b.linhas / b.de - a.linhas / a.de);
+  const C = [ic("bom", "O cubo bate com as tabelas brutas", D.reconciliacao.length + " checagens", D.reconciliacao.join("; ") + ".", "")];
+  if (Qd.length) C.push(ic("alerta", "O maior problema de dado: " + Qd[0].achado.split(":")[0].toLowerCase(), pct(Qd[0].linhas / Qd[0].de, 0),
+    `${num(Qd[0].linhas)} de ${num(Qd[0].de)} linhas. ${Qd[0].tratamento}`, "corrigir na origem; enquanto isso, a regra fica no build."));
+  C.push(ic("neutro", "Imperfeições encontradas e tratadas", String(D.qualidade.length), "Cada uma está contada abaixo, com o tratamento aplicado antes de virar métrica.", ""));
+  document.getElementById("i-qualidade").innerHTML = C.join("");
+}
+
 // ---------- páginas
 function pGeral(P, Q) {
   const ativoTxt = `${num(P.ativos)} assinantes`;
@@ -468,22 +779,6 @@ function pGeral(P, Q) {
     card("Receita por assinante / mês", brl(P.arpu, 2), delta(P.arpu, Q?.arpu, "%")),
     card("NPS", isFinite(P.nps) ? nf0.format(P.nps) : "—", delta(P.nps, Q?.nps, "pts", P.npsN, Q?.npsN), !(P.npsN >= MIN)),
   ].join("");
-  // destaques automáticos
-  const L = [];
-  if (Q && isFinite(Q.churn) && P.enc >= MIN) {
-    const dv = P.churn - Q.churn, ok = !fr(P.enc / P.base, Q.enc / Q.base);
-    L.push(`Churn mensal de <b>${pct(P.churn)}</b>${ok ? `, ${dv > 0 ? "acima" : "abaixo"} da comparação em ${nf1.format(Math.abs(dv) * 100)} p.p.` : ", estável contra a comparação (diferença dentro do ruído)"}; o involuntário responde por <b>${pct(P.encInv / P.enc, 0)}</b> dos encerramentos.`);
-  }
-  const pc = soma(S.i0, S.i1, k => k[1]);
-  const canais = Object.entries(pc).map(([c, o]) => ({c, n: g(o, "novas")})).sort((a, b) => b.n - a.n);
-  if (canais.length && P.novas > 0) L.push(`<b>${esc(NOME_CANAL[canais[0].c])}</b> trouxe ${pct(canais[0].n / P.novas, 0)} das novas assinaturas do período (${num(canais[0].n)}).`);
-  const mot = longa(D.motivos, S.i0, S.i1), mt = Object.entries(mot).sort((a, b) => b[1] - a[1]), tot = mt.reduce((a, b) => a + b[1], 0);
-  if (tot >= MIN) L.push(`Nos cancelamentos voluntários, <b>${esc(MOTIVOS[mt[0][0]] || mt[0][0])}</b> é o motivo mais citado (${pct(mt[0][1] / tot, 0)} de ${num(tot)} respostas).`);
-  if (filtroCompleto() && isFinite(P.cacPago) && isFinite(P.ltv)) L.push(`Nos canais pagos, cada assinante pagante custou <b>${brl(P.cacPago)}</b>; um assinante médio gera ${brl(P.ltv)} de receita ao longo da vida, <b>${nf1.format(P.ltv / P.cacPago)}x</b> esse custo, antes de conteúdo e operação.`);
-  const ev = D.eventos.filter(e => M.indexOf(e.mes) >= S.i0 && M.indexOf(e.mes) <= S.i1);
-  if (ev.length) L.push(`No período: ${ev.map(e => esc(e.rotulo) + " em " + rotuloLongo(e.mes)).join("; ")}.`);
-  document.getElementById("destaques").innerHTML = L.map(x => `<li>${x}</li>`).join("") || "<li>Período curto demais para destaques confiáveis.</li>";
-
   const mrr = serie("mrr"), atv = serie("ativos_fim");
   const melhor = mrr.slice(S.i0, S.i1 + 1);
   document.getElementById("h-mrr").textContent = `Receita recorrente de ${brlK(P.mrr)} em ${rotuloLongo(M[S.i1])}; pico do período em ${rotuloLongo(M[S.i0 + melhor.indexOf(Math.max(...melhor))])}`;
@@ -559,8 +854,6 @@ function pAquisicao(P, Q) {
   document.getElementById("n-canal").textContent = "Orgânico não tem investimento; indicação é o crédito pago ao indicador; parceria é o fee por cadastro. LTV usa receita (não margem). Cinza: menos de 30 pagantes.";
   const ord = pagos.slice().sort((a, b) => A[b.codigo].cac - A[a.codigo].cac);
   // canais que compram em ondas (TV): num período curto, os cadastros podem vir de uma campanha anterior ao período
-  const ondas = c => { const v = M.map((m, i) => midia(i, i, true)[c]?.inv || 0), med = v.slice().sort((x, y) => x - y)[Math.floor(v.length / 2)];
-    return Math.max(...v) > 10 * Math.max(med, 1); };
   const curto = S.i1 - S.i0 + 1 < 6;
   const aviso = c => curto && ondas(c) ? ` (atenção: ${c === "tv" ? "a TV" : NOME_CANAL[c]} compra em ondas; em períodos curtos o CAC mistura cadastros de campanhas anteriores, use 6 meses ou mais)` : "";
   if (ord.length >= 2 && ok) {
@@ -740,6 +1033,10 @@ function pMetodo() {
   <li><b>Comparação</b>: período anterior de mesmo tamanho, ou o mesmo período um ano antes.</li>
   <li><b>Amostra pequena</b>: um número sobre menos de 30 eventos, ou uma variação dentro de 1,96 erros-padrão de Poisson, aparece em cinza e não vira destaque.</li>
   </ul>
+  <p><b>Faixas de leitura dos cards.</b> Os selos <i>Saudável</i>, <i>Atenção</i> e <i>Alerta</i> usam regras de bolso declaradas aqui, não
+  benchmarks medidos; ajuste-as à meta da empresa: crescimento ${REF.cresc.txt} (por mês); quick ratio (entradas / saídas) ${REF.quick.txt};
+  churn mensal ${REF.churn.txt}; payback do CAC ${REF.payback.txt}; LTV/CAC ${REF.ltvcac.txt}; parcela involuntária do churn ${REF.invol.txt};
+  ativação (assinantes que assistiram no mês) ${REF.ativ.txt}; NPS ${REF.nps.txt}. Com menos de 30 eventos, o card fica como <i>Contexto</i>.</p>
   <p><b>Reconciliação.</b> O build confere o cubo contra as tabelas brutas e para se algo divergir: ${D.reconciliacao.map(esc).join("; ")}.</p>`;
 }
 
@@ -747,6 +1044,8 @@ function pMetodo() {
 function desenha() {
   const P = kpis(S.i0, S.i1), [c0, c1] = comparacao(), Q = kpis(c0, c1);
   ({geral: pGeral, aquisicao: pAquisicao, receita: pReceita, retencao: pRetencao, uso: pUso, qualidade: pQualidade, metodo: pMetodo})[S.pagina](P, Q);
+  if (S.pagina === "geral") insGeral(P, Q, painelSaude(P, Q));
+  ({aquisicao: insAquisicao, receita: insReceita, retencao: insRetencao, uso: insUso, qualidade: insQualidade})[S.pagina]?.(P, Q);
 }
 function atualiza() { pintaMeses(); desenha(); }
 document.getElementById("fonte").textContent = `${M.length} meses · ${rotuloLongo(M[0])} a ${rotuloLongo(M[M.length - 1])}`;

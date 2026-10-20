@@ -28,6 +28,18 @@ MODELO = Path(__file__).resolve().parent / "modelo.html"
 INICIO, FIM = "2023-10-01", "2026-10-31"    # período do banco, em dias civis de Brasília
 FUSO = "INTERVAL 3 HOUR"                     # UTC → Brasília (UTC−3, sem horário de verão desde 2019)
 
+# faixas de leitura dos cards (regras de bolso declaradas, não benchmarks medidos): bom, ruim, maior é melhor
+REFERENCIAS = {
+    "cresc":   {"bom": 0.01, "ruim": 0, "alto": True, "txt": "≥ +1% ao mês bom · < 0 alerta"},
+    "quick":   {"bom": 2, "ruim": 1, "alto": True, "txt": "≥ 2 saudável · < 1 encolhendo"},
+    "churn":   {"bom": 0.04, "ruim": 0.06, "alto": False, "txt": "≤ 4% bom · > 6% alerta"},
+    "payback": {"bom": 6, "ruim": 12, "alto": False, "txt": "≤ 6 meses bom · > 12 alerta"},
+    "ltvcac":  {"bom": 3, "ruim": 1.5, "alto": True, "txt": "≥ 3x bom · < 1,5x alerta"},
+    "invol":   {"bom": 0.25, "ruim": 0.35, "alto": False, "txt": "≤ 25% bom · > 35% alerta"},
+    "ativ":    {"bom": 0.85, "ruim": 0.7, "alto": True, "txt": "≥ 85% bom · < 70% alerta"},
+    "nps":     {"bom": 30, "ruim": 0, "alto": True, "txt": "≥ 30 bom · < 0 alerta"},
+}
+
 # categorias de ticket digitadas de várias formas → categoria canônica
 CATEGORIAS = {
     "acesso_login": "acesso_login", "acesso/login": "acesso_login", "login": "acesso_login", "acesso": "acesso_login",
@@ -313,6 +325,7 @@ def main() -> None:
     dados["meta"] = {"fonte": args.dados.parent.name, "contas": int(n_contas), "gerado_em": date.today().isoformat(),
                      "inicio": INICIO, "fim": FIM}
     dados["qualidade"] = qualidade
+    dados["referencias"] = REFERENCIAS
     dados["reconciliacao"] = reconciliar(con, dados)
     SAIDA_HTML.parent.mkdir(parents=True, exist_ok=True)
     simbolo = (Path(__file__).resolve().parent / "simbolo.svg").read_text(encoding="utf-8").replace('aria-label="ABADE symbol"', 'aria-label="ABADE"')

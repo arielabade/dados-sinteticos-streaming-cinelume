@@ -113,6 +113,34 @@ class Cubo:
                 "tickets": s["tickets"]}
 
 
+def nivel(v, r):
+    if v is None or not math.isfinite(v):
+        return "—"
+    if r["alto"]:
+        return "Saudável" if v >= r["bom"] else ("Alerta" if v < r["ruim"] else "Atenção")
+    return "Saudável" if v <= r["bom"] else ("Alerta" if v > r["ruim"] else "Atenção")
+
+
+def saude(c: "Cubo", a: str, b: str) -> dict:
+    """As mesmas métricas do painel 'Saúde do negócio' do HTML, para o período [a, b]."""
+    M = c.M
+    i0, i1 = M.index(a), M.index(b)
+    n = i1 - i0 + 1
+    K = c.kpis(a, b)
+    s = c.soma(a, b)
+    ini = c.soma(M[i0 - 1], M[i0 - 1]) if i0 > 0 else None
+    at0, mrr0 = (ini["ativos_fim"], ini["mrr"]) if ini else (float("nan"), float("nan"))
+    entra = s["ativos_ini"] + s["novas"] + s["reativacoes"]
+    return {
+        "cresc_at": K["ativos"] / at0 - 1, "cresc_at_mes": (K["ativos"] / at0) ** (1 / n) - 1 if at0 else float("nan"),
+        "cresc_mrr": K["mrr"] / mrr0 - 1, "cresc_mrr_mes": (K["mrr"] / mrr0) ** (1 / n) - 1 if mrr0 else float("nan"),
+        "liquido": K["novas"] + K["reat"] - K["enc"], "quick": (K["novas"] + K["reat"]) / K["enc"] if K["enc"] else float("nan"),
+        "churn": K["churn"], "payback": K["cac_pago"] / K["arpu"], "ltvcac": K["ltv"] / K["cac_pago"],
+        "invol": K["inv_enc"] / K["enc"] if K["enc"] else float("nan"),
+        "ativ": s["contas_assistiram"] / entra if entra else float("nan"), "nps": K["nps"], "at0": at0, "K": K,
+    }
+
+
 def escrever(d: dict) -> str:
     c = Cubo(d)
     M = c.M
@@ -120,6 +148,34 @@ def escrever(d: dict) -> str:
     a12, b12 = M[-12], M[-1]
     a24, b24 = M[-24], M[-13]
     P, Q, T = c.kpis(a12, b12), c.kpis(a24, b24), c.kpis(ini, fim)
+    R = d["referencias"]
+    H, HQ = saude(c, a12, b12), saude(c, a24, b24)
+    linhas_s = [
+        ["Crescimento de assinantes no período", ("+" if H["cresc_at"] >= 0 else "") + pct(H["cresc_at"]), ("+" if HQ["cresc_at"] >= 0 else "") + pct(HQ["cresc_at"]),
+         f"{pct(H['cresc_at_mes'])} ao mês · " + R["cresc"]["txt"], nivel(H["cresc_at_mes"], R["cresc"])],
+        ["Crescimento da receita recorrente", ("+" if H["cresc_mrr"] >= 0 else "") + pct(H["cresc_mrr"]), ("+" if HQ["cresc_mrr"] >= 0 else "") + pct(HQ["cresc_mrr"]),
+         f"{pct(H['cresc_mrr_mes'])} ao mês · " + R["cresc"]["txt"], nivel(H["cresc_mrr_mes"], R["cresc"])],
+        ["Quick ratio (entradas / saídas)", _n(H["quick"], 2), _n(HQ["quick"], 2), R["quick"]["txt"], nivel(H["quick"], R["quick"])],
+        ["Churn mensal", pct(H["churn"]), pct(HQ["churn"]), R["churn"]["txt"], nivel(H["churn"], R["churn"])],
+        ["Payback do CAC (canais pagos)", _n(H["payback"], 1) + " meses", _n(HQ["payback"], 1) + " meses", R["payback"]["txt"], nivel(H["payback"], R["payback"])],
+        ["LTV (receita) / CAC (canais pagos)", _n(H["ltvcac"], 1) + "x", _n(HQ["ltvcac"], 1) + "x", R["ltvcac"]["txt"], nivel(H["ltvcac"], R["ltvcac"])],
+        ["Parcela involuntária do churn", pct(H["invol"], 0), pct(HQ["invol"], 0), R["invol"]["txt"], nivel(H["invol"], R["invol"])],
+        ["Ativação (assinantes que assistiram no mês)", pct(H["ativ"], 0), pct(HQ["ativ"], 0), R["ativ"]["txt"], nivel(H["ativ"], R["ativ"])],
+        ["NPS", _n(H["nps"], 0), _n(HQ["nps"], 0), R["nps"]["txt"], nivel(H["nps"], R["nps"])],
+    ]
+    vigiar = [x for x in linhas_s if x[4] == "Alerta"] + [x for x in linhas_s if x[4] == "Atenção"]
+    def min1(t):  # baixa só a primeira palavra, e só se não for sigla
+        w, _, resto = t.split(" (")[0].partition(" ")
+        return (w if w.isupper() else w.lower()) + (" " + resto if resto else "")
+    fortes = [min1(x[0]) for x in linhas_s if x[4] == "Saudável"]
+    ritmo = ""
+    if math.isfinite(HQ["cresc_at"]) and HQ["cresc_at"] > 0:
+        ritmo = (f" O ritmo {'desacelerou' if H['cresc_at'] < HQ['cresc_at'] else 'acelerou'}: nos 12 meses anteriores a base tinha crescido "
+                 f"{pct(HQ['cresc_at'])}, e a receita recorrente {pct(HQ['cresc_mrr'])}.")
+    resumo_s = (f"Nos últimos 12 meses a base cresceu **{pct(H['cresc_at'])}** ({_n(H['liquido'])} assinantes líquidos) e a receita recorrente "
+                f"**{pct(H['cresc_mrr'])}**: para cada assinante que saiu, entraram **{_n(H['quick'], 1)}**.{ritmo} "
+                + (f"Pontos fortes: {', '.join(fortes[:4])}. " if fortes else "")
+                + (f"Ponto a vigiar: **{min1(vigiar[0][0])}** ({vigiar[0][1]})." if vigiar else "Nenhuma métrica fora da faixa saudável."))
     nome_c = {x["codigo"]: x["nome"] for x in d["canais"]}
     pago_c = {x["codigo"]: x["pago"] for x in d["canais"]}
     nome_p = {x["id"]: x["nome"] for x in d["planos"]}
@@ -234,6 +290,15 @@ anterior, e filtros de canal, plano e método de pagamento. Este texto e o relat
     ["NPS", _n(P['nps'], 0), _n(Q['nps'], 0), ("+" if P['nps'] >= Q['nps'] else "") + _n(P['nps'] - Q['nps'], 0) + " pts"],
 ])}
 
+### Saúde do negócio
+
+{resumo_s}
+
+{tabela(["Métrica", f"{mes_longo(a12)}–{mes_longo(b12)}", f"{mes_longo(a24)}–{mes_longo(b24)}", "Faixa de leitura", "Leitura"], linhas_s, texto=(3, 4))}
+
+As faixas são regras de bolso declaradas (as mesmas do relatório interativo), não benchmarks medidos. LTV e payback usam receita,
+não margem: com custo de conteúdo, os dois ficam piores.
+
 **O que os dados mostram**
 
 {chr(10).join("- " + a for a in achados if a)}
@@ -241,6 +306,8 @@ anterior, e filtros de canal, plano e método de pagamento. Este texto e o relat
 ---
 
 ## 2. Aquisição (últimos 12 meses)
+
+*A pergunta: cada real investido está trazendo assinantes que pagam e ficam?*
 
 O canal de cada cadastro é o gravado na conta. A coluna "atribuição" mostra o que a ferramenta de último clique creditou ao canal;
 a diferença é a distorção que ela introduz. CAC = investimento / contas novas que pagaram a primeira fatura em até 30 dias.
@@ -254,6 +321,8 @@ por cadastro. LTV usa receita, não margem: não desconta custo de conteúdo.
 
 ## 3. Receita e reajustes
 
+*A pergunta: a receita cresce por mais assinantes, por mais receita por assinante, ou pelos dois?*
+
 Receita por assinante e churn voluntário nos 3 meses antes e nos 3 meses depois de cada reajuste de preço:
 
 {tabela(["Reajuste", "Receita / assinante antes", "Depois", "Variação", "Churn voluntário antes", "Depois", "Variação"], reaj)}
@@ -263,6 +332,10 @@ Cobrança de membro extra (desde 10/03/2025): {brl(P['extra'])} nos últimos 12 
 ---
 
 ## 4. Planos e retenção (últimos 12 meses)
+
+*A pergunta: quem está saindo, por quê, e quanto disso dá para evitar?* O churn involuntário (falha de pagamento) foi
+**{pct(P['inv_enc'] / P['enc'], 0)}** das saídas, cerca de **{brl(P['inv_enc'] / 12 * P['arpu'])}** de receita recorrente perdida por mês: é a parte
+mais evitável, com retentativa no cartão, lembrete no boleto e migração para cobrança automática.
 
 {tabela(["Plano", "Assinantes (fim)", "Receita paga", "Receita / assinante / mês", "Churn mensal", "Horas / conta / mês", "NPS"], lin_p)}
 

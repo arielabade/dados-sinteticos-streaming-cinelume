@@ -27,6 +27,25 @@ anterior, e filtros de canal, plano e método de pagamento. Este texto e o relat
 | LTV (receita) / CAC dos canais pagos | 12,8x | 9,3x | +38,0% |
 | NPS | 28 | 18 | +10 pts |
 
+### Saúde do negócio
+
+Nos últimos 12 meses a base cresceu **46,1%** (5.162 assinantes líquidos) e a receita recorrente **50,0%**: para cada assinante que saiu, entraram **1,6**. O ritmo desacelerou: nos 12 meses anteriores a base tinha crescido 86,0%, e a receita recorrente 114,0%. Pontos fortes: crescimento de assinantes no período, crescimento da receita recorrente, payback do CAC, LTV. Ponto a vigiar: **parcela involuntária do churn** (35%).
+
+| Métrica | nov/2025–out/2026 | nov/2024–out/2025 | Faixa de leitura | Leitura |
+|---|---:|---:|---|---|
+| Crescimento de assinantes no período | +46,1% | +86,0% | 3,2% ao mês · ≥ +1% ao mês bom · < 0 alerta | Saudável |
+| Crescimento da receita recorrente | +50,0% | +114,0% | 3,4% ao mês · ≥ +1% ao mês bom · < 0 alerta | Saudável |
+| Quick ratio (entradas / saídas) | 1,60 | 1,82 | ≥ 2 saudável · < 1 encolhendo | Atenção |
+| Churn mensal | 5,1% | 5,9% | ≤ 4% bom · > 6% alerta | Atenção |
+| Payback do CAC (canais pagos) | 1,5 meses | 1,8 meses | ≤ 6 meses bom · > 12 alerta | Saudável |
+| LTV (receita) / CAC (canais pagos) | 12,8x | 9,3x | ≥ 3x bom · < 1,5x alerta | Saudável |
+| Parcela involuntária do churn | 35% | 33% | ≤ 25% bom · > 35% alerta | Alerta |
+| Ativação (assinantes que assistiram no mês) | 96% | 96% | ≥ 85% bom · < 70% alerta | Saudável |
+| NPS | 28 | 18 | ≥ 30 bom · < 0 alerta | Atenção |
+
+As faixas são regras de bolso declaradas (as mesmas do relatório interativo), não benchmarks medidos. LTV e payback usam receita,
+não margem: com custo de conteúdo, os dois ficam piores.
+
 **O que os dados mostram**
 
 - **Base e receita.** 16.370 assinantes ativos em out/2026 (+46,1% em 12 meses) e R$ 7.619.203 de receita paga nos últimos 12 meses (+67,4% contra os 12 anteriores).
@@ -39,6 +58,8 @@ anterior, e filtros de canal, plano e método de pagamento. Este texto e o relat
 ---
 
 ## 2. Aquisição (últimos 12 meses)
+
+*A pergunta: cada real investido está trazendo assinantes que pagam e ficam?*
 
 O canal de cada cadastro é o gravado na conta. A coluna "atribuição" mostra o que a ferramenta de último clique creditou ao canal;
 a diferença é a distorção que ela introduz. CAC = investimento / contas novas que pagaram a primeira fatura em até 30 dias.
@@ -59,6 +80,8 @@ por cadastro. LTV usa receita, não margem: não desconta custo de conteúdo.
 
 ## 3. Receita e reajustes
 
+*A pergunta: a receita cresce por mais assinantes, por mais receita por assinante, ou pelos dois?*
+
 Receita por assinante e churn voluntário nos 3 meses antes e nos 3 meses depois de cada reajuste de preço:
 
 | Reajuste | Receita / assinante antes | Depois | Variação | Churn voluntário antes | Depois | Variação |
@@ -71,6 +94,10 @@ Cobrança de membro extra (desde 10/03/2025): R$ 38.447 nos últimos 12 meses, 0
 ---
 
 ## 4. Planos e retenção (últimos 12 meses)
+
+*A pergunta: quem está saindo, por quê, e quanto disso dá para evitar?* O churn involuntário (falha de pagamento) foi
+**35%** das saídas, cerca de **R$ 10.836** de receita recorrente perdida por mês: é a parte
+mais evitável, com retentativa no cartão, lembrete no boleto e migração para cobrança automática.
 
 | Plano | Assinantes (fim) | Receita paga | Receita / assinante / mês | Churn mensal | Horas / conta / mês | NPS |
 |---|---:|---:|---:|---:|---:|---:|
