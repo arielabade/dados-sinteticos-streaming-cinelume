@@ -30,6 +30,38 @@ Tudo é inventado: títulos, estúdios, elenco, marcas, pessoas, e-mails (domín
 | `dados/parquet/` | Um Parquet por tabela (formato principal para análise e ML). Gerado; fora do git. |
 | `dados/csv/` | Um CSV gzip por tabela (usado na carga do MySQL). Gerado; fora do git. |
 | `_gabarito/` | Gabarito e métricas internas. **Não abra antes de explorar.** Fora do git. |
+| `relatorio/` | Gera o relatório gerencial (cubo mensal em DuckDB → HTML estilo Power BI + Markdown). |
+| `docs/relatorio/index.html` | O relatório interativo, publicado no GitHub Pages. **Revela padrões dos dados.** |
+| `docs/RELATORIO.md` | A leitura escrita do relatório. **Revela padrões dos dados.** |
+
+## Relatório gerencial
+
+> ⚠️ **Spoiler.** O relatório mostra padrões e imperfeições que este banco esconde de propósito. Se a ideia é praticar a
+> exploração, leia depois de explorar.
+
+**[Abrir o relatório interativo](https://arielabade.github.io/dados-sinteticos-streaming-cinelume/relatorio/)** ·
+[leitura escrita](docs/RELATORIO.md)
+
+Um relatório estilo Power BI num único arquivo HTML, sem servidor:
+
+- **navegador de meses:** clique num mês, em dois meses com "Selecionar intervalo" (ou Shift+clique), use os atalhos
+  (último mês, 3, 6 e 12 meses, ano atual, tudo) ou as setas para deslizar o período;
+- **comparação** com o período anterior de mesmo tamanho ou com o mesmo período do ano anterior;
+- **filtros** de canal, plano e método de pagamento, que recalculam tudo;
+- **páginas:** visão geral, aquisição, receita, retenção, uso e atendimento, qualidade dos dados e método.
+
+Os títulos dos gráficos dizem a conclusão e mudam com o período. Toda taxa é razão de somas, e um número sobre poucos eventos
+aparece em cinza, sem virar destaque. Antes de virar métrica, cada imperfeição encontrada nos dados (fuso UTC, milissegundos no
+app 6.x, distorção da ferramenta de atribuição, faturas pagas sem pagamento, categorias sujas…) é contada e tratada. O build
+confere o resultado contra as tabelas brutas e para se algo divergir.
+
+Para regerar (o relatório publicado usa a escala `medium`):
+
+```bash
+pip install numpy pandas pyarrow faker duckdb
+python gerar_dados.py --scale medium --saida dados_medium
+python relatorio/build.py            # usa dados_medium/ se existir; senão dados/
+```
 
 ## Como gerar
 
