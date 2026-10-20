@@ -13,47 +13,51 @@ anterior, e filtros de canal, plano e método de pagamento. Este texto e o relat
 
 ## 1. Resumo
 
-| Indicador | nov/2025–out/2026 | nov/2024–out/2025 | Variação |
-|---|---:|---:|---:|
-| Assinantes ativos (fim) | 16.370 | 11.208 | +46,1% |
-| Receita recorrente (último mês) | R$ 720.405 | R$ 480.140 | +50,0% |
-| Receita paga | R$ 7.619.203 | R$ 4.552.818 | +67,4% |
-| Novas assinaturas | 11.202 | 10.096 | +11,0% |
-| Churn mensal | 5,1% | 5,9% | -0,8 p.p. |
-| Receita por assinante / mês | R$ 43,30 | R$ 39,29 | +10,2% |
-| Investimento em aquisição | R$ 397.148 | R$ 378.345 | +5,0% |
-| CAC dos canais pagos (busca, social, TV) | R$ 66 | R$ 71 | -7,5% |
-| CAC médio, todos os canais (inclui orgânico) | R$ 36 | R$ 38 | -5,3% |
-| LTV (receita) / CAC dos canais pagos | 12,8x | 9,3x | +38,0% |
-| NPS | 28 | 18 | +10 pts |
+Base **+46,1%** (+5.162 líquidos), mas para cada saída entram só **1,6**: **35%** das saídas são falha de pagamento.
 
-### Saúde do negócio
+Nos últimos 12 meses a base cresceu **46,1%** (5.162 assinantes líquidos) e a receita recorrente **50,0%**: para cada assinante que saiu, entraram **1,6**. O ritmo desacelerou: nos 12 meses anteriores a base tinha crescido 86,0%. Pontos fortes: crescimento de assinantes, crescimento da receita recorrente, payback do CAC. Ponto a vigiar: **churn involuntário** (35%). A aquisição já se paga em 1,5 meses; a próxima alavanca é reter: **cobrança (35% das saídas) e reengajamento (63% de quem cancela cita pouco uso)**.
 
-Nos últimos 12 meses a base cresceu **46,1%** (5.162 assinantes líquidos) e a receita recorrente **50,0%**: para cada assinante que saiu, entraram **1,6**. O ritmo desacelerou: nos 12 meses anteriores a base tinha crescido 86,0%, e a receita recorrente 114,0%. Pontos fortes: crescimento de assinantes no período, crescimento da receita recorrente, payback do CAC, LTV. Ponto a vigiar: **parcela involuntária do churn** (35%).
+### O que decidir
 
-| Métrica | nov/2025–out/2026 | nov/2024–out/2025 | Faixa de leitura | Leitura |
-|---|---:|---:|---|---|
-| Crescimento de assinantes no período | +46,1% | +86,0% | 3,2% ao mês · ≥ +1% ao mês bom · < 0 alerta | Saudável |
-| Crescimento da receita recorrente | +50,0% | +114,0% | 3,4% ao mês · ≥ +1% ao mês bom · < 0 alerta | Saudável |
-| Quick ratio (entradas / saídas) | 1,60 | 1,82 | ≥ 2 saudável · < 1 encolhendo | Atenção |
-| Churn mensal | 5,1% | 5,9% | ≤ 4% bom · > 6% alerta | Atenção |
-| Payback do CAC (canais pagos) | 1,5 meses | 1,8 meses | ≤ 6 meses bom · > 12 alerta | Saudável |
-| LTV (receita) / CAC (canais pagos) | 12,8x | 9,3x | ≥ 3x bom · < 1,5x alerta | Saudável |
-| Parcela involuntária do churn | 35% | 33% | ≤ 25% bom · > 35% alerta | Alerta |
-| Ativação (assinantes que assistiram no mês) | 96% | 96% | ≥ 85% bom · < 70% alerta | Saudável |
-| NPS | 28 | 18 | ≥ 30 bom · < 0 alerta | Atenção |
+1. **Recuperar a cobrança: 35% das saídas são falha de pagamento** (Alerta · churn involuntário). 3.003 assinaturas encerradas por pagamento não concretizado: cerca de R$ 10.836 de receita recorrente perdida por mês. Boleto perde 2,1x mais por pagamento que Cartão (3,3% contra 1,6% ao mês). *O que fazer:* retentativa inteligente no cartão, lembrete antes do vencimento e migração de quem paga com Boleto para cobrança automática.
+2. **Reengajar antes do cancelamento: 63% de quem cancela cita pouco uso** (Atenção · motivo de cancelamento). Pouco uso lidera as 2.347 respostas da pesquisa de cancelamento; preço é citado por 22%. *O que fazer:* reengajar quem não assiste há 14 dias (push com recomendação) antes de oferecer desconto.
+3. **Realocar verba de Social pago para Busca paga, em degraus** (Saudável · payback do CAC). LTV/CAC (receita) de 20,4x em Busca paga contra 7,6x em Social pago; os canais pagos, juntos, se pagam em 1,5 meses. *O que fazer:* mover verba aos poucos, lendo o CAC marginal a cada passo.
+
+### Indicadores do período
+
+| Indicador | nov/2025–out/2026 | nov/2024–out/2025 | Variação | Faixa de leitura | Leitura |
+|---|---:|---:|---:|---|---|
+| Assinantes ativos (fim) | 16.370 | 11.208 | +46,1% | — | — |
+| Crescimento de assinantes | +46,1% | +86,0% | -39,9 p.p. | +3,2% ao mês · ≥ +1% ao mês bom · < 0 alerta | Saudável |
+| Receita recorrente (último mês) | R$ 720.405 | R$ 480.140 | +50,0% | — | — |
+| Crescimento da receita recorrente | +50,0% | +114,0% | -64,0 p.p. | +3,4% ao mês · ≥ +1% ao mês bom · < 0 alerta | Saudável |
+| Receita paga | R$ 7.619.203 | R$ 4.552.818 | +67,4% | — | — |
+| Novas assinaturas | 11.202 | 10.096 | +11,0% | — | — |
+| Quick ratio | 1,60 | 1,82 | -0,21 | ≥ 2 saudável · < 1 encolhendo | Atenção |
+| Churn mensal | 5,1% | 5,9% | -0,8 p.p. | ≤ 4% bom · > 6% alerta | Atenção |
+| Churn involuntário (parcela das saídas) | 35% | 33% | +2,4 p.p. | ≤ 25% bom · > 35% alerta | Alerta |
+| Receita por assinante / mês (média do período) | R$ 43,30 | R$ 39,29 | +10,2% | — | — |
+| Investimento em aquisição | R$ 397.148 | R$ 378.345 | +5,0% | — | — |
+| CAC dos canais pagos (busca, social, TV) | R$ 66 | R$ 71 | -7,5% | — | — |
+| CAC médio, todos os canais (inclui orgânico) | R$ 36 | R$ 38 | -5,3% | — | — |
+| Payback do CAC | 1,5 meses | 1,8 meses | -0,3 meses | ≤ 6 meses bom · > 12 alerta | Saudável |
+| LTV / CAC (receita) | 12,8x | 9,3x | +38,0% | ≥ 3x bom · < 1,5x alerta | Saudável |
+| Ativação (assinantes que assistiram no mês) | 96% | 96% | -0,3 p.p. | ≥ 85% bom · < 70% alerta | Saudável |
+| NPS | 28 | 18 | +10 pts | ≥ 30 bom · < 0 alerta | Atenção |
 
 As faixas são regras de bolso declaradas (as mesmas do relatório interativo), não benchmarks medidos. LTV e payback usam receita,
-não margem: com custo de conteúdo, os dois ficam piores.
+não margem: com custo de conteúdo, os dois ficam piores. A receita por assinante da tabela é a média do período contra a média da
+comparação; a variação da receita recorrente nos achados abaixo compara o último mês com o mês anterior ao início do período.
 
 **O que os dados mostram**
 
-- **Base e receita.** 16.370 assinantes ativos em out/2026 (+46,1% em 12 meses) e R$ 7.619.203 de receita paga nos últimos 12 meses (+67,4% contra os 12 anteriores).
+- **Base e receita.** 16.370 assinantes ativos em out/2026 (+46,1% em 12 meses) e R$ 7.619.203 de receita paga nos últimos 12 meses (+67,4% contra os 12 anteriores). A receita recorrente cresceu 50,0% de out/2025 a out/2026: 93% do aumento veio de mais assinantes (+46,1% na base, +2,7% por assinante).
 - **Churn.** 5,1% ao mês nos últimos 12 meses (-0,8 p.p.); o involuntário, falha de pagamento, é 35% dos encerramentos, e Boleto tem o maior churn involuntário (3,3% ao mês).
 - **Canais.** Entre os canais pagos, TV tem o CAC mais alto (R$ 110) e Busca paga o mais baixo (R$ 46).
-- **Atribuição.** A ferramenta de atribuição credita à busca paga +33% cadastros em relação ao canal gravado na conta, e à TV -55%: decidir verba pela atribuição superinveste em busca e subinveste em TV.
+- **Atribuição.** Contra o canal gravado na conta, a ferramenta de atribuição credita Busca paga +33%, Social pago -22%, TV -55%: decidir verba pela atribuição superinveste em Busca paga e subinveste em TV, Social pago.
 - **Cancelamento.** Pouco uso é o motivo mais citado (63% das 2.347 respostas em 12 meses).
-- **Uso.** Quem assina Premium assiste 26,1 h por mês, contra 11,3 h no Básico com anúncios.
+- **Uso por plano.** Quem assina Premium assiste 26,1 h por mês, contra 11,3 h no Básico com anúncios.
+- **Uso.** As horas por conta que assistiu cresceram +45,1% contra os 12 meses anteriores, puxadas pelo Premium (+67,6%: de 15,6 para 26,1 h). Nele, as reproduções por conta foram de 18,6 para 28,1 por mês (+50,6%) e a duração por reprodução de 50 para 56 min (+11,3%): a variação vem da frequência, não de sessões mais longas. Nenhum evento registrado explica a mudança: a causa de negócio ainda precisa ser registrada.
 
 ---
 
@@ -90,6 +94,8 @@ Receita por assinante e churn voluntário nos 3 meses antes e nos 3 meses depois
 | set/2025 | R$ 39,33 | R$ 42,50 | +8,1% | 4,6% | 4,4% | -0,3 p.p. |
 
 Cobrança de membro extra (desde 10/03/2025): R$ 38.447 nos últimos 12 meses, 0,5% da receita paga.
+Descontos de cupom: R$ 226.456, 2,9% do preço de tabela (receita paga + descontos − membro extra),
+contra 3,5% nos 12 meses anteriores.
 
 ---
 

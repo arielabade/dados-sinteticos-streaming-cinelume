@@ -226,6 +226,9 @@ def cubo(con) -> dict:
         # uso: horas assistidas e contas que assistiram, pelo plano vigente no início da reprodução
         "horas": """SELECT date_trunc('month', r.ini)::DATE, p.canal, p.plano_id, p.metodo, SUM(r.seg) / 3600.0
             FROM reproducoes r JOIN plano_em p ON p.conta_id = r.conta_id AND r.ini >= p.de AND r.ini < p.ate GROUP BY ALL""",
+        # nº de reproduções: horas por conta = reproduções por conta × horas por reprodução (decomposição do uso)
+        "reproducoes": """SELECT date_trunc('month', r.ini)::DATE, p.canal, p.plano_id, p.metodo, COUNT(*)
+            FROM reproducoes r JOIN plano_em p ON p.conta_id = r.conta_id AND r.ini >= p.de AND r.ini < p.ate GROUP BY ALL""",
         "contas_assistiram": """SELECT mes, canal, plano_id, metodo, COUNT(*) FROM (
                 SELECT DISTINCT date_trunc('month', r.ini)::DATE AS mes, p.canal, p.plano_id, p.metodo, r.conta_id
                 FROM reproducoes r JOIN plano_em p ON p.conta_id = r.conta_id AND r.ini >= p.de AND r.ini < p.ate) GROUP BY ALL""",
@@ -283,9 +286,12 @@ def cubo(con) -> dict:
         "midia": [[r[0], r[1], round(r[2] or 0, 2), int(r[3] or 0), int(r[4] or 0), int(r[5] or 0)] for r in midia],
         "motivos": [[r[0], r[1], int(r[2]), r[3], r[4], int(r[5])] for r in motivos if r[0] and r[0] <= FIM[:7]],
         "tickets": [[r[0], r[1], int(r[2]), r[3], r[4], int(r[5])] for r in tickets if r[0] and r[0] <= FIM[:7]],
-        "eventos": [{"mes": d[:7], "rotulo": f"reajuste de preço ({d[8:10]}/{d[5:7]})"} for d in reajustes]
-                   + [{"mes": "2024-04", "rotulo": "fim do trial de 7 dias (31/03)"},
-                      {"mes": "2025-03", "rotulo": "cobrança de membro extra (10/03)"}],
+        "eventos": [{"mes": d[:7], "rotulo": f"reajuste de preço ({d[8:10]}/{d[5:7]}/{d[:4]})"} for d in reajustes]
+                   + [{"mes": "2024-04", "rotulo": "fim do trial de 7 dias (31/03/2024)"},
+                      {"mes": "2025-03", "rotulo": "cobrança de membro extra (10/03/2025)"}],
+        # anotações por gráfico ({"mes": "AAAA-MM", "rotulo": "..."}), vazias até haver registro da causa no repositório.
+        # [PRECISA DE INSUMO] g-horas: causa de negócio do aumento de reproduções por conta no Premium em 2026.
+        "anotacoes": {"g-horas": []},
     }
 
 
