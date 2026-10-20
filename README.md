@@ -42,11 +42,15 @@ Tudo é inventado: títulos, estúdios, elenco, marcas, pessoas, e-mails (domín
 **[Abrir o relatório interativo](https://arielabade.github.io/dados-sinteticos-streaming-cinelume/relatorio/)** ·
 [leitura escrita](docs/RELATORIO.md)
 
-Um relatório estilo Power BI num único arquivo HTML, sem servidor:
+Um relatório no padrão visual do Power BI (tema Fluent 2: Segoe UI, paleta e cores estruturais do tema padrão, canvas cinza, slicers fixos no topo) num único arquivo HTML, sem servidor:
 
 - **navegador de meses:** clique num mês, em dois meses com "Selecionar intervalo" (ou Shift+clique), use os atalhos
   (último mês, 3, 6 e 12 meses, ano atual, tudo) ou as setas para deslizar o período;
-- **comparação** com o período anterior de mesmo tamanho ou com o mesmo período do ano anterior;
+- **comparação** com o período anterior de mesmo tamanho, com o mesmo período do ano anterior, com a média mensal dos 12 meses
+  anteriores, ou com um período livre (opção "Escolher…", ou Alt+clique num mês); períodos de tamanhos diferentes são comparados
+  em média mensal;
+- **segmento contra segmento** no mesmo período (canal × canal, plano × plano, método × método), com os cards em pares;
+- **melhor e pior mês** de cada taxa, numa régua dentro do card;
 - **filtros** de canal, plano e método de pagamento, que recalculam tudo;
 - **páginas:** visão geral, aquisição, receita, retenção, uso e atendimento, qualidade dos dados e método.
 
